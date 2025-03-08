@@ -1,0 +1,2 @@
+username: vmsAdmin
+pass: nwannaji

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Department Bar Chart</title>
+    <a href="{% url 'dashboard' %}" type="text/css"><- Dashboard</a>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            fetch('/department-data/')
+            .then(response => response.json())
+            .then(departmentData => {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Department');
+                data.addColumn('number', 'Visitors');
+
+                for (var dept in departmentData) {
+                    data.addRow([dept, departmentData[dept]]);
+                }
+
+                var options = {
+                    title: 'Visitors per Department',
+                    hAxis: { title: 'Departments' },
+                    vAxis: { title: 'Number of Visitors' }
+                };
+
+                var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div id="chart_div" style="width: 1000px; height: 500px;"></div>
+</body>
+</html>
+
+{% endblock %}

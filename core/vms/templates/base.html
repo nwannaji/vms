@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VMS</title>
+    <meta name="description" content="Visitors Management System">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Tangerine" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple|3d-float">
+    
+    <!-- CSS Stylesheets -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
+</head>
+
+    
+    <!-- Inline Styles -->
+    <style>
+    .no-login {
+        margin-left: auto;
+        font-family: 'Times New Roman', Tangerine;
+        font-size: 15px;
+        color: rgba(82, 11, 212, 0.897);
+        font-style: normal;
+        text-align: right;
+        font-weight: bold;
+    }
+    .usr{
+        margin-left: auto;
+        font-family: 'Times New Roman', Tangerine;
+        font-size: 15px;
+        color: rgba(219, 35, 143, 0.897);
+        font-style: normal;
+        text-align: right;
+        font-weight: bold;
+    }
+</style>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'dashboard' %}">
+                <img src="{% static 'img/logo1.png'%}" alt="Logo" width="45" height="50" class=" rounded-circle align-text-top me-2">
+                 <p class="text-primary font-effect-3d-float"> NigComSat Visitors Management System </p>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-3">
+                    <li class="nav-item text-primary" style='font-weight:bold;'>
+                        <a class="nav-link text-primary" href="{% url 'dashboard'%}">Home</a>
+                    </li>
+                    <li class="nav-item" style='font-weight:bold;'>
+                        <a class="nav-link text-primary" href="{% url 'chart' %}">Analytics</a>
+                    </li>
+                    <li class="nav-item" style='font-weight:bold;'>
+                        <a class="nav-link text-primary" href="{% url 'schedule_visit' %}" data-bs-toggle="modal" data-bs-target="#visitorModal">Schedule Visit</a>
+                    </li>
+                    <li class="nav-item" style='font-weight:bold;'>
+                        <a class="nav-link text-primary " href="{%url 'contact' %}">Contact us</a>
+                    </li>
+                    <li class="nav-item" style='font-weight:bold;'>
+                        <a class="nav-link text-primary " href="https://www.nigcomsat.gov.ng">About</a>
+                    </li>
+                </ul>
+            </div>
+            {% if request.user.is_authenticated %}
+            <p class='text-primary'>Welcome <span class="usr">{{ request.user.username|title }}</span>, you last logged in {{ request.user.last_login|date:'D d M Y' }}</p>
+            {% else %}
+                <h3 class="no-login"><i class="bi bi-person"></i> Welcome guest!</h3>
+            {% endif %}
+        </div>
+    </nav>
+    <main>
+        <div class="container-fluid">
+            <div class="row mt-2">
+                <div class="col-md-3 col-sm-4 col-12 bg-secondary sidebar py-3">
+                    <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                        <span class="fs-4"><img class="rounded-circle me-2" src="{% static 'img/sat.jpg' %}" alt="satellite" width="40" height="40"></span>
+                    </a>
+                    <hr class="text-white">
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item">
+                            <a href="" class="nav-link active" aria-current="page">
+                                <i class="fa fa-home"></i> Dashboard
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa fa-gears"></i> Settings
+                            </a>
+                        </li> -->
+                    </ul>
+                    <hr class="text-white">
+                    <div class="card custom-card background-image">
+                    
+                        <div class="card-body"></div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-8 col-12 py-3">
+                    {% block content %}
+                    
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-secondary text-white mt-auto">
+        <div class="container-fluid">
+            <div class="row mt-2">
+                <div class="col-12">
+                    <p>&copy; 2024 Powered by Innovation Department | Phone: +234808810000 | Email: hnwatu@nigcomsat.gov.ng 
+                        <ul class="social-links justify-content-center">
+                            <li><a href="https://www.facebook.com"><i class="fab fa-facebook"></i> Facebook</a></li>
+                            <li><a href="https://www.twitter.com"><i class="fab fa-twitter"></i> Twitter</a></li>
+                            <li><a href="https://www.instagram.com"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        </ul>
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+    <style>
+        .fa-facebook, .fa-instagram,.fa-twitter {
+            color: hsl(44, 87%, 44%); /* Facebook Blue */
+            font-size: 24px; /* Adjust the size */
+            margin-right: 8px; /* Add spacing between icon and text */
+        }
+        .social-links {
+                        list-style-type: none; /* Remove bullet points */
+                        padding: 0; /* Remove default padding */
+                        margin: 0; /* Remove default margin */
+                        display: flex; /* Use flexbox to arrange items in a row */
+                        gap: 15px; /* Optional: Add some space between the items */
+                        }
+
+        .social-links li {
+            display: inline; /* Ensure each list item is inline */
+        }
+
+        .social-links a {
+            text-decoration: none; /* Remove underline from links */
+            color: #ffffff; /* Optional: Set link color */
+            font-family: 'Inconsolata', monospace; /* Apply font */
+        }
+
+    </style>
+    <!-- JavaScript Files -->
+     <!-- Bootstrap JS (with Popper.js for dropdowns and collapsibles) -->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+.custom-card {
+    width: 20rem;
+    height: 25rem;
+    background-image: url('/static/img/visitorLogo.jpg');
+    background-size: cover; /* Ensures the image covers the entire card */
+    background-position: center; /* Centers the image within the card */
+}
+
+.messages {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .messages li {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: #333; /* Set default text color */
+  }
+  
+  .messages li.error {
+    background-color: #d81717;
+    border-color: #e0dede;
+    color: #fff; /* White text for better contrast */
+    font-family: 'Tangerine', Times New Roman;
+    font-size: medium;
+    font-weight: bold;
+  }
+  
+  .messages li.success {
+    background-color: #0dc40d;
+    border-color: #dfe0df;
+    color: #fff; /* White text for better contrast */
+    font-family: 'Tangerine', Times New Roman;
+    font-size: medium;
+    font-weight: bold;
+  }
+  
